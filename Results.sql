@@ -60,24 +60,62 @@ WHERE Branch = N'أدبي'
 
 
 -- متوسط المجاميع	
-SELECT CONCAT (
-		CAST(AVG(Total) * 100 / 410 AS DECIMAL(10, 2))
-		,'%'
-		) AS 'AVG Results'
-FROM Final_Results
+SELECT ROUND(AVG(Percentage),2) AS 'AVG Results' 
+FROM  Final_Results
+
+
+
+-- This Query To convert Percentage To Float Use Removeing '%'
+UPDATE Final_Results
+SET Percentage = REPLACE(Percentage, '%', '')
+
 
 
 --عدد الناجحين في كل مادة 
+-- اللغة العربية
+SELECT COUNT(Sitting_Number) AS 'The number of successful students in Arabic'
+FROM Final_Results
+WHERE Arabic >=40
 
 
 
+-- اللغة الأنجليزية
+SELECT COUNT(Sitting_Number) AS 'The number of successful students in English'
+FROM Final_Results
+WHERE English >=30
 
 
+--اللغة الفرنسية 
+SELECT COUNT(Sitting_Number) AS 'The number of successful students in Second Foreign Language2'
+FROM Final_Results
+WHERE Second_Foreign_Language2 >=30
 
 
+-- الكيمياء
+SELECT COUNT(Sitting_Number) AS 'The number of successful students in Chemistry'
+FROM Final_Results
+WHERE Chemistry >=30
 
 
+--الفيزياء
+SELECT COUNT(Sitting_Number) AS 'The number of successful students in Physics'
+FROM Final_Results
+WHERE Physics >= 30
 
+
+--الجيولوجيا وعلوم البيئة 
+SELECT COUNT(Sitting_Number) AS 'The number of successful students in Geology'
+FROM Final_Results
+WHERE Geology >= 30
+
+
+-- الأحياء
+SELECT COUNT(Sitting_Number) AS 'The number of successful students in Biology'
+FROM Final_Results
+WHERE Biology >= 30
+
+
+-- الرياضيات التطبيقية
 
 
 
@@ -136,7 +174,7 @@ END;
 -- Retrieve top 5 results for branches 'عملي علوم' and 'عملي رياضة'
 EXEC Top_Percentage @Top_Num = 10, @BranchList = N'عملي علوم,عملي رياضة';
 
-EXEC Top_Percentage @Top_Num = 10
+EXEC Top_Percentage @Top_Num = 15
 
 EXEC Top_Percentage 
 
